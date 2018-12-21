@@ -1,0 +1,125 @@
+{% extends 'myadmin/base.html' %}
+<div class="right">
+    {% block right_conent %}
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main"></div>
+<div class="row">
+    <script src="/static/myadmin/js/kindeditor/kindeditor-all-min.js"></script>
+    <script src="/static/myadmin/js/kindeditor/lang/zh-CN.js"></script>
+    <link rel="stylesheet" href="/static/myadmin/js/kindeditor/themes/default/default.css" />
+    <!--载入kindeditor配置-->
+    <script>
+        KindEditor.ready(function (k) {
+            window.editor = k.create('#content', {
+                resizeType: 1,
+                autoHeightMode: true,
+                allowPreviewEmoticons: false,
+                allowImageRemote: false,
+                items: [
+                    'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+                    'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+                    'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                { #处理url# }
+                uploadJson : '/upload/kindeditor',
+            });
+        })
+    </script>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+    <div class="row">
+        <form action="{% url 'config' %}" method="post" autocomplete="off" draggable="false" enctype="multipart/form-data">
+                             {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ res.id }}">
+            <div class="col-md-9">
+                <h1 class="page-header">用户设置</h1>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>站点标题</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <input type="text" name="title" class="form-control" placeholder="请输入站点标题" required autofocus autocomplete="off"  value="{{ res.title }}">
+                    </div>
+                </div>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>关于我们</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <input type="text" name="about_us" class="form-control" placeholder="请输入站点副标题" autocomplete="off" value="{{ res.about_us }}">
+                        <span class="prompt-text">用简洁的文字描述本站点。</span>
+                    </div>
+                </div>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>联系我们</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <input type="text" name="connect_us" class="form-control" placeholder="在此处输入站点地址（URL）" autocomplete="off" value="{{ res.connect_us }}" >
+                    </div>
+                </div>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>站点关键字</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <textarea class="form-control" name="keywords" >{{ res.keywords }}</textarea>
+                        <span class="prompt-text">关键字会出现在网页的keywords属性中。</span>
+                    </div>
+                </div>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>站点描述</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <textarea class="form-control" name="description" rows="4" autocomplete="off">{{ res.description }}</textarea>
+                        <span class="prompt-text">描述会出现在网页的description属性中。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h1 class="page-header">网站logo:</h1>
+                <div class="add-article-box">
+                    <div class="add-article-box-content">
+                        <img id="myimage" width="35px" height="35px" src="{{ res.logo }}">
+                    </div>
+                        <input type="file" name="logo" onchange="change_img(this)">
+                </div>
+
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>ICP备案号</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <input type="email" name="email" class="form-control" placeholder="在此处输入备案号" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="add-article-box">
+                    <h2 class="add-article-box-title">
+                        <span>保存</span>
+                    </h2>
+                    <div class="add-article-box-content">
+                        <span class="prompt-text">请确定您对所有选项所做的更改</span>
+                    </div>
+                    <div class="add-article-box-footer">
+                        <button class="btn btn-primary" type="submit" name="submit">更新</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    <script>
+        function change_img(obj) {
+            file = obj.files[0]
+            if (window.FileReader) {
+                fr = new FileReader()
+                fr.onloadend = function (e) {
+                    $('#myimage').attr('src', e.target.result)
+
+                }
+                fr.readAsDataURL(file)
+            }
+
+
+        }
+    </script>
+ {% endblock %}
+</div>

@@ -1,0 +1,74 @@
+{% extends 'myadmin/base.html' %}
+
+<div class="right">
+
+    {% block  right_conent %}
+    <style>
+        .page a{display: inline-block;border: 1px solid #006666; position: relative; 
+          line-height: 1.42857143;padding: 6px 12px;
+          margin-left: -1px;
+          line-height: 1.42857143;
+          color: #337ab7;
+          text-decoration: none;
+          background-color: #fff;
+          border: 1px solid #3399cc; }
+        .page .curpage{ background-color: #337ab7;color:white; cursor: default;  z-index: 2;}
+      </style>
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+                <h1 class="page-header">操作</h1>
+                    <ol class="breadcrumb">
+                      <li><a data-toggle="modal" data-target="#addUser"  href="{% url 'admin_add' %}">增加用户</a></li>
+                    </ol>
+                    <h1 class="page-header">管理</h1>
+                    <div class="table-responsive">
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th><span class="glyphicon glyphicon-th-large"></span> <span class="visible-lg">ID</span></th>
+                            <th><span class="glyphicon glyphicon-user"></span> <span class="visible-lg">用户名</span></th>
+                            <th><span class="glyphicon glyphicon-bookmark"></span> <span class="visible-lg">密码</span></th>
+                            <th><span class="glyphicon glyphicon-time"></span> <span class="visible-lg">添加时间</span></th>
+                            <th><span class="glyphicon glyphicon-pencil"></span> <span class="visible-lg">操作</span></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                                {% for i in res %}
+                                <tr>
+                                    <td class="center">{{ i.id }}</td>
+                                    <td>{{ i.username }}</td>
+                                    <td>{{ i.password }}</td>
+                                    <td>{{ i.add_time }}</td>
+                                    <td class="center"><a href="#" onclick="del({{ i.id }})">删除</a> || <a href="/myadmin/admin_edit?id={{ i.id }}">修改</a></td>
+                                </tr>
+                              {% endfor %}
+                        </tbody>
+                      </table>
+                         <div class="page">{{ page_html|safe }}</div>
+                         <script>
+                          //删除操作
+                               function del(id){
+                                   if(confirm('是否需要删除？')){
+                         
+                                     location.href='/myadmin/admin_del?id='+id
+                                   }
+                         
+                               }
+                         
+                          </script>
+                    </div>
+                </div>
+              </div>
+            </section>
+
+{% endblock %}
+
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

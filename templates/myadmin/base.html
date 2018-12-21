@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台首页</title>
+    <link rel="stylesheet" type="text/css" href="/static/myadmin/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/myadmin/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/myadmin/css/font-awesome.min.css">
+    <link rel="apple-touch-icon-precomposed" href="/static/myadmin/images/icon/icon.png">
+    <link rel="shortcut icon" href="/static/myadmin/images/icon/favicon.ico">
+    <script src="/static/myadmin/js/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">切换导航</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <a class="navbar-brand" href="/">有才的Blog</a> </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">欢迎{{ request.COOKIES.username }}登入</a>
+             </li>
+            <li><a href="{% url 'login_out' %}" onClick="if(!confirm('是否确认退出？'))return false;">退出登录</a></li>
+            <!-- <li><a data-toggle="modal" data-target="#WeChat">帮助</a></li> -->
+          </ul>
+          <form action="" method="post" class="navbar-form navbar-right" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" autocomplete="off" placeholder="键入关键字搜索" maxlength="15">
+              <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">搜索</button>
+              </span> </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+</div>
+<aside class="col-sm-3 col-md-2 col-lg-2 sidebar">
+    <ul class="nav nav-sidebar">
+      <li><a href="/myadmin/">后台首页</a></li>
+      <li><a href="{% url 'config' %}">网站配置·</a></li>
+      <li><a href="/myadmin/article_cat_list">文章分类</a></li>
+      <li><a href="/myadmin/article_list">文章</a></li>
+      <li><a href="{% url 'message_board' %}">留言板</a></li>
+      <li><a href="{% url 'admin_list' %}">用户管理</a></li>
+    </ul>
+    </ul>
+  </aside>
+    </div>
+    <div class="right">
+        {% block right_conent %}
+            我这里中部需要更改的内容
+
+        {% endblock %}
+    </div>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

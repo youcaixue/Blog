@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/ai4_blog.iml" filepath="$PROJECT_DIR$/.idea/ai4_blog.iml" />
+      <module fileurl="file://E:/Python/pychamexercise/2.26/demo1/.idea/demo1.iml" filepath="E:/Python/pychamexercise/2.26/demo1/.idea/demo1.iml" />
+    </modules>
+  </component>
+</project>

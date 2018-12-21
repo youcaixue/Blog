@@ -1,0 +1,45 @@
+{% extends 'myadmin/base.html' %}
+
+<div class="right">
+
+{% block right_conent %}
+    <div class="modal-dialog" role="document" style="max-width:450px;">
+        <form action="{% url 'admin_add' %}" method="post" autocomplete="off" draggable="false">
+            {% csrf_token %}
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" >增加用户</h4>
+              </div>
+              <div class="modal-body">
+                <table class="table" style="margin-bottom:0px;">
+                  <thead>
+                    <tr> </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td wdith="20%">用户名:</td>
+                      <td width="80%"><input type="text" value="" class="form-control" name="username" maxlength="10" autocomplete="off" /></td>
+                    </tr>
+                    <tr>
+                      <td wdith="20%">新密码:</td>
+                      <td width="80%"><input type="password" class="form-control" name="password" maxlength="18" autocomplete="off" /></td>
+                    </tr>
+                    <tr>
+                      <td wdith="20%">确认密码:</td>
+                      <td width="80%"><input type="password" class="form-control" name="repassword" maxlength="18" autocomplete="off" /></td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr></tr>
+                  </tfoot>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">提交</button>
+              </div>
+            </div>
+        </form>
+</div>
+</div>
+{% endblock %}
+</div>

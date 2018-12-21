@@ -1,0 +1,32 @@
+{% extends 'myadmin/base.html' %}
+
+<div class="right">
+
+{% block right_conent %}
+        <h3>修改用户</h3>
+        <!--<div style="text-align: right"><a href="{% url 'admin_list' %}">返回列表</a></div>-->
+         <div class="myform">
+              <form action="{% url 'admin_edit' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="id" value="{{ res.id }}"/>
+                  <div>
+                      <label>用户名:</label>
+                      <input type="text" name="username" disabled value="{{ res.username }}" required>
+                   </div>
+                  <div>
+                       <label>密码:</label>
+                      <input type="password" name="password" required>
+                  </div>
+                   <div>
+                      <label>确认密码:</label>
+                      <input type="password" name="repassword" required>
+                   </div>
+                  <div class="submit"><input type="submit" value="提交"/></div>
+              </form>
+         </div>
+
+
+
+    </div>
+{% endblock %}
+</div>

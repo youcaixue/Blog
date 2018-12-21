@@ -1,0 +1,86 @@
+{% extends 'myadmin/base.html' %}
+
+
+{% block right_conent %}
+    <script src="/static/myadmin/js/kindeditor/kindeditor-all-min.js"></script>
+    <script src="/static/myadmin/js/kindeditor/lang/zh-CN.js"></script>
+    <link rel="stylesheet" href="/static/myadmin/js/kindeditor/themes/default/default.css"/>
+     <!--载入kindeditor配置-->
+     <script>
+        KindEditor.ready(function (k) {
+            window.editor = k.create('#content',{
+                resizeType:1,
+                autoHeightMode : true,
+                allowPreviewEmoticons : false,
+                allowImageRemote : false,
+                items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                {#处理url#}
+                uploadJson : '/upload/kindeditor',
+            });
+        })
+    </script>
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-lg-10 col-md-offset-2 main" id="main">
+    <div class="row">
+        <form action="{% url 'article_add' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div>
+              <label>标题:</label>
+              <input type="text" name="title"  class="form-control" required>
+           </div>
+          <div>
+              <h2 class="add-article-box-title"><span>图片</span></h2>
+              <div  style="display: inline-block;width: 35px;height: 35px;border: 1px solid red; " class="add-article-box-content"    >
+                    <img id="myimage" width="35px" height="35px" src="">
+              </div>
+               <input type="file" name="image" onchange="change_img(this)">
+          </div>
+          <div class="add-article-box">
+              <h2 class="add-article-box-title"><span>描述</span></h2>
+              <div class="add-article-box-content">
+              	<textarea class="form-control" name="desc" autocomplete="off"></textarea>
+                <span class="prompt-text">描述是可选的手工创建的内容总结，并可以在网页描述中使用</span>
+              </div>
+            <div>
+                <h2 class="add-article-box-title"><span>文章分类：</span></h2>
+              <select name="cat_id" class="form-control">
+                  {% for i in cat_res %}
+                    <option value="{{ i.id }}">{{ i.cat_name }}</option>
+                  {% endfor %}
+              </select>
+           <div>
+              <h2 class="add-article-box-title"><span>详细:</span></h2>
+              <textarea name="content" id="content" cols="30" rows="10"></textarea>
+           </div>
+           <div>
+              <h2 class="add-article-box-title"><span>排序:</span></h2>
+              <input type="number" name="sort" class="form-control"required>
+           </div>
+            <div>
+                <h2 class="add-article-box-title"><span>点击次数:</span></h2>
+              <input type="number" name="count" class="form-control" required>
+           </div>
+           <div class="add-article-box-footer">
+              <button class="btn btn-primary" type="submit" name="submit">发布</button>
+            </div>
+      </form>
+      </div>
+    </div>
+<script>
+function change_img(obj){
+    file = obj.files[0]
+    if(window.FileReader){
+       fr = new FileReader()
+        fr.onloadend=function(e){
+            $('#myimage').attr('src',e.target.result)
+
+        }
+        fr.readAsDataURL(file)
+    }
+
+
+}
+</script>
+{% endblock %}
