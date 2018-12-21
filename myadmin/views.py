@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect,reverse
 from myadmin import models
 import math
 from django.views.decorators.csrf import csrf_exempt
+from time import sleep
 def test(request):
     return HttpResponse('Nihao')
 
